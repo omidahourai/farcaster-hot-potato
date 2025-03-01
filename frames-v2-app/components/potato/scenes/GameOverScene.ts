@@ -1,5 +1,12 @@
 import * as Phaser from "phaser";
 
+// Define window.ethereum for TypeScript
+declare global {
+    interface Window {
+        ethereum: any;
+    }
+}
+
 export class GameOverScene extends Phaser.Scene {
     private finalScore: number = 0;
 
@@ -83,8 +90,8 @@ export class GameOverScene extends Phaser.Scene {
             playAgainButton.fillColor = 0x17101F; // Back to original green
         });
 
-        // Add click event to restart the game
-        playAgainButton.on("pointerdown", () => {
+        // Add click event to submit score and navigate to pass-potato page
+        playAgainButton.on("pointerdown", async () => {
             // Disable the button to prevent multiple clicks
             playAgainButton.disableInteractive();
             playAgainButton.fillColor = 0x888888; // Gray out the button
@@ -93,7 +100,7 @@ export class GameOverScene extends Phaser.Scene {
             const loadingText = this.add.text(
                 this.cameras.main.centerX,
                 this.cameras.main.centerY + 140,
-                "Loading...",
+                "Connecting to wallet...",
                 {
                     fontFamily: "Arial",
                     fontSize: "16px",
@@ -102,17 +109,43 @@ export class GameOverScene extends Phaser.Scene {
                 }
             ).setOrigin(0.5);
             
-            // Add a delay before scene transition
-            this.time.delayedCall(500, () => {
-                // Completely restart the game by going through the start scene
-                // First stop all scenes to ensure a clean state
-                this.scene.manager.scenes.forEach(scene => {
-                    this.scene.stop(scene.scene.key);
+            try {
+                // For now, let's just navigate to the pass-potato page without blockchain interaction
+                // This is a temporary solution until we fix the blockchain integration
+                
+                // Save the score to localStorage for the next page
+                localStorage.setItem('potatoGameScore', this.finalScore.toString());
+                
+                loadingText.setText("Score saved! Redirecting...");
+                
+                // Navigate to the pass-potato page after a short delay
+                this.time.delayedCall(1000, () => {
+                    // Stop all scenes
+                    this.scene.manager.scenes.forEach(scene => {
+                        this.scene.stop(scene.scene.key);
+                    });
+                    
+                    // Redirect to the pass-potato page
+                    window.location.href = "/pass-potato";
                 });
                 
-                // Then start the StartScene
-                this.scene.start("StartScene");
-            });
+
+                
+            } catch (error) {
+                console.error("Error:", error);
+                loadingText.setText("An error occurred. Redirecting...");
+                
+                // Even if there's an error, let's still navigate to the pass-potato page
+                this.time.delayedCall(2000, () => {
+                    // Stop all scenes
+                    this.scene.manager.scenes.forEach(scene => {
+                        this.scene.stop(scene.scene.key);
+                    });
+                    
+                    // Redirect to the pass-potato page
+                    window.location.href = "/pass-potato";
+                });
+            }
         });
 
         // Add a sad potato icon
