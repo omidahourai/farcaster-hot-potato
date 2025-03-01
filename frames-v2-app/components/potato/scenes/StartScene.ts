@@ -58,7 +58,7 @@ export class StartScene extends Phaser.Scene {
             startButton.fillColor = 0x888888; // Gray out the button
             
             // Add a loading indicator
-            const loadingText = this.add.text(
+            this.add.text(
                 this.cameras.main.centerX,
                 this.cameras.main.centerY + 120,
                 "Loading...",

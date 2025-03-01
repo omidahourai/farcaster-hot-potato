@@ -243,7 +243,7 @@ export class BouncingBallScene extends Phaser.Scene {
         ).setAlpha(0.8);
         
         // Add a darker base
-        const fireBaseDark = this.add.rectangle(
+        this.add.rectangle(
             screenWidth / 2,
             this.cameras.main.height - 5,
             screenWidth,
@@ -272,7 +272,7 @@ export class BouncingBallScene extends Phaser.Scene {
         // Check if game over
         if (this.lives <= 0) {
             // Game over - add a loading text
-            const loadingText = this.add.text(
+            this.add.text(
                 this.cameras.main.centerX,
                 this.cameras.main.centerY,
                 "Game Over...",

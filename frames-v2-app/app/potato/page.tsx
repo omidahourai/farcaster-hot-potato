@@ -11,11 +11,9 @@ const PotatoGame = dynamic(() => import("~/components/potato/PotatoGame"), {
 
 export default function PotatoPage() {
     const [isSDKLoaded, setIsSDKLoaded] = useState(false);
-    const [context, setContext] = useState<any>();
 
     useEffect(() => {
         const load = async () => {
-            setContext(await sdk.context);
             sdk.actions.ready();
         };
         if (sdk && !isSDKLoaded) {

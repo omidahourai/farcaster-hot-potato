@@ -28,7 +28,6 @@ export default function AttestPage() {
   // Initialize Farcaster Frame SDK
   useEffect(() => {
     const load = async () => {
-      // setContext(await sdk.context);
       sdk.actions.ready();
     };
     if (sdk && !isSDKLoaded) {

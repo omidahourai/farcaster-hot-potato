@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   try {
     // You can validate the frame action here if needed
     // const body = await req.json();
