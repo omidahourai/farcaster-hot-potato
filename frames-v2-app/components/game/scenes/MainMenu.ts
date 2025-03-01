@@ -2,7 +2,8 @@ import { EventBus } from "../EventBus";
 import { Scene } from "phaser";
 
 export class MainMenu extends Scene {
-    logoTween;
+    logoTween: Phaser.Tweens.Tween | null = null;
+    logo: Phaser.GameObjects.Image | null = null;
 
     constructor() {
         super("MainMenu");
@@ -35,7 +36,7 @@ export class MainMenu extends Scene {
         this.scene.start("Game");
     }
 
-    moveLogo(reactCallback) {
+    moveLogo(reactCallback: (position: { x: number; y: number }) => void) {
         if (this.logoTween) {
             if (this.logoTween.isPlaying()) {
                 this.logoTween.pause();
@@ -52,8 +53,8 @@ export class MainMenu extends Scene {
                 onUpdate: () => {
                     if (reactCallback) {
                         reactCallback({
-                            x: Math.floor(this.logo.x),
-                            y: Math.floor(this.logo.y),
+                            x: Math.floor(this.logo?.x ?? 0),
+                            y: Math.floor(this.logo?.y ?? 0),
                         });
                     }
                 },

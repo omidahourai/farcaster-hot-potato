@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "app/page.tsx -> ~/components/Demo": {
     "id": "app/page.tsx -> ~/components/Demo",
     "files": [
@@ -7,30 +8,67 @@
   },
   "app/potato/page.tsx -> ~/components/potato/PotatoGame": {
     "id": "app/potato/page.tsx -> ~/components/potato/PotatoGame",
+=======
+  "app/game/page.tsx -> ~/components/Demo": {
+    "id": 535,
+>>>>>>> passpotato
     "files": [
-      "static/chunks/_app-pages-browser_components_potato_PotatoGame_tsx.js"
+      "static/chunks/580-03cf76e285edaa9e.js",
+      "static/chunks/699-321fb6cf32356bda.js",
+      "static/chunks/759-cdeea188a4f1eff6.js",
+      "static/chunks/535.3aef543ef091aa62.js"
+    ]
+  },
+  "app/page.tsx -> ~/components/Demo": {
+    "id": 535,
+    "files": [
+      "static/chunks/580-03cf76e285edaa9e.js",
+      "static/chunks/699-321fb6cf32356bda.js",
+      "static/chunks/759-cdeea188a4f1eff6.js",
+      "static/chunks/535.3aef543ef091aa62.js"
+    ]
+  },
+  "app/potato/page.tsx -> ~/components/potato/PotatoGame": {
+    "id": 6789,
+    "files": [
+      "static/chunks/8f005c66-713a19b74eb89d51.js",
+      "static/chunks/789.ec6370b27d214716.js"
     ]
   },
   "app/providers.tsx -> ~/components/providers/WagmiProvider": {
-    "id": "app/providers.tsx -> ~/components/providers/WagmiProvider",
+    "id": 6264,
     "files": [
-      "static/chunks/_app-pages-browser_components_providers_WagmiProvider_tsx.js"
+      "static/chunks/580-03cf76e285edaa9e.js",
+      "static/chunks/699-321fb6cf32356bda.js",
+      "static/chunks/264.03233ac51eae1c11.js"
     ]
   },
   "node_modules/viem/_esm/actions/public/call.js -> ../../utils/ccip.js": {
+<<<<<<< HEAD
     "id": "node_modules/viem/_esm/actions/public/call.js -> ../../utils/ccip.js",
     "files": [
       "static/chunks/_app-pages-browser_node_modules_viem__esm_utils_ccip_js.js"
+=======
+    "id": 4505,
+    "files": [
+      "static/chunks/505.9f86b9fd197c8218.js"
+>>>>>>> passpotato
     ]
   },
   "node_modules/viem/_esm/utils/rpc/webSocket.js -> isows": {
-    "id": "node_modules/viem/_esm/utils/rpc/webSocket.js -> isows",
+    "id": null,
     "files": []
   },
   "node_modules/viem/_esm/utils/signature/recoverPublicKey.js -> @noble/curves/secp256k1": {
+<<<<<<< HEAD
     "id": "node_modules/viem/_esm/utils/signature/recoverPublicKey.js -> @noble/curves/secp256k1",
     "files": [
       "static/chunks/_app-pages-browser_node_modules_noble_curves_esm_secp256k1_js.js"
+=======
+    "id": 2232,
+    "files": [
+      "static/chunks/232.54edc7948de22e77.js"
+>>>>>>> passpotato
     ]
   }
 }

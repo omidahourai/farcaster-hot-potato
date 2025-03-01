@@ -9,15 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ethersproject/providers": "^5.8.0",
     "@farcaster/frame-sdk": "^0.0.28",
     "@neynar/nodejs-sdk": "^2.17.0",
     "@tanstack/react-query": "^5.66.9",
     "axios": "^1.8.1",
     "dotenv": "^16.4.7",
+    "ethers": "^6.13.5",
     "next": "15.1.7",
     "phaser": "^3.88.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "uuid": "^11.1.0",
     "viem": "2.x",
     "wagmi": "^2.14.11"
   },

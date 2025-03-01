@@ -1,4 +1,4 @@
-import { NeynarAPIClient, Configuration, isApiErrorResponse } from "@neynar/nodejs-sdk";
+import { isApiErrorResponse } from "@neynar/nodejs-sdk";
 import { NextRequest, NextResponse } from 'next/server';
 import dotenv from 'dotenv';
 
@@ -11,6 +11,11 @@ export async function GET(req: NextRequest) {
   if (!username) {
     return NextResponse.json({ error: 'Missing username' }, { status: 400 });
   }
+  
+  const apiKey = process.env.NEYNER_API_KEY;
+  if (!apiKey) {
+    return NextResponse.json({ error: 'Missing API key' }, { status: 500 });
+  }
 
   try {
     const options = {
@@ -18,7 +23,7 @@ export async function GET(req: NextRequest) {
       headers: {
         accept: 'application/json',
         'x-neynar-experimental': 'false',
-        'x-api-key': process.env.NEYNER_API_KEY
+        'x-api-key': apiKey
       }
     };
     const response = await fetch(`https://api.neynar.com/v2/farcaster/user/by_username?username=${username}`, options);

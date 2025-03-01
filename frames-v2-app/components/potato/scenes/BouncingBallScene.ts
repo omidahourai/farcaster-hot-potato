@@ -40,7 +40,8 @@ export class BouncingBallScene extends Phaser.Scene {
         this.load.image('hell-background', '/assets/hell-image.jpg');
         
         // Create a potato shape as a texture
-        const graphics = this.make.graphics({ x: 0, y: 0, add: false });
+        // const graphics = this.make.graphics({ x: 0, y: 0, add: false });
+        const graphics = this.make.graphics({ x: 0, y: 0 });
         
         // Draw potato body (oval shape)
         graphics.fillStyle(0xbf8d30, 1); // Potato brown color
@@ -56,7 +57,7 @@ export class BouncingBallScene extends Phaser.Scene {
         graphics.generateTexture("potato", 64, 64);
         
         // Create heart icon for lives
-        const heartGraphics = this.make.graphics({ x: 0, y: 0, add: false });
+        const heartGraphics = this.make.graphics({ x: 0, y: 0 });
         heartGraphics.fillStyle(0xff0000, 1); // Red color
         heartGraphics.fillCircle(8, 8, 8); // Left circle
         heartGraphics.fillCircle(24, 8, 8); // Right circle
@@ -67,7 +68,7 @@ export class BouncingBallScene extends Phaser.Scene {
         heartGraphics.generateTexture("heart", 32, 32);
         
         // Create fire particle texture
-        const fireParticle = this.make.graphics({ x: 0, y: 0, add: false });
+        const fireParticle = this.make.graphics({ x: 0, y: 0 });
         
         // Create a simple fire particle with color fills
         fireParticle.fillStyle(0xffffff, 1); // White center
@@ -149,19 +150,25 @@ export class BouncingBallScene extends Phaser.Scene {
             // Left boundary
             if (this.potato.x < this.potato.width / 2) {
                 this.potato.x = this.potato.width / 2;
-                this.potato.setVelocityX(Math.abs(this.potato.body.velocity.x)); // Bounce back
+                if (this.potato && this.potato.body) {
+                    this.potato.setVelocityX(Math.abs(this.potato.body.velocity.x)); // Bounce back
+                }
             }
             
             // Right boundary
             if (this.potato.x > this.cameras.main.width - this.potato.width / 2) {
                 this.potato.x = this.cameras.main.width - this.potato.width / 2;
-                this.potato.setVelocityX(-Math.abs(this.potato.body.velocity.x)); // Bounce back
+                if (this.potato && this.potato.body) {
+                    this.potato.setVelocityX(-Math.abs(this.potato.body.velocity.x)); // Bounce back
+                }
             }
             
             // Top boundary
             if (this.potato.y < this.potato.height / 2) {
                 this.potato.y = this.potato.height / 2;
-                this.potato.setVelocityY(Math.abs(this.potato.body.velocity.y)); // Bounce back
+                if (this.potato && this.potato.body) {
+                    this.potato.setVelocityY(Math.abs(this.potato.body.velocity.y)); // Bounce back
+                }
             }
         }
     }
@@ -303,7 +310,7 @@ export class BouncingBallScene extends Phaser.Scene {
             this.cameras.main.centerY - 30, // Move up a bit to be clearly above the fire
             240,
             50,
-            0x4caf50 // Green color
+            0x17101F // Green color
         ).setInteractive({ useHandCursor: true });
         
         // Add button text
@@ -322,11 +329,11 @@ export class BouncingBallScene extends Phaser.Scene {
         
         // Add hover effect
         continueButton.on("pointerover", () => {
-            continueButton.fillColor = 0x388e3c; // Darker green
+            continueButton.fillColor = 0x342841; // Darker green
         });
         
         continueButton.on("pointerout", () => {
-            continueButton.fillColor = 0x4caf50; // Back to original green
+            continueButton.fillColor = 0x17101F; // Back to original green
         });
         
         // Add click event to restart the level

@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState } from "react";
-import sdk, { type FrameContext } from "@farcaster/frame-sdk";
+import sdk from "@farcaster/frame-sdk";
 import { useAccount, useSendTransaction, useSignMessage, useSignTypedData, useWaitForTransactionReceipt, useDisconnect, useConnect } from "wagmi";
 
 import { config } from "~/components/providers/WagmiProvider";
@@ -8,7 +8,7 @@ import { truncateAddress } from "~/lib/truncateAddress";
 
 export default function Demo() {
     const [isSDKLoaded, setIsSDKLoaded] = useState(false);
-    const [context, setContext] = useState<FrameContext>();
+    const [context, setContext] = useState<any>();
     const [isContextOpen, setIsContextOpen] = useState(false);
     const [txHash, setTxHash] = useState<string | null>(null);
 

@@ -1,4 +1,4 @@
-// File: /Users/omidahourai/Development/_ethdenver/farcaster/hot-potato/frames-v2-app/app/layout.tsx
+// File: /home/ethden25/myapp/farcaster-hot-potato/frames-v2-app/app/layout.tsx
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -25,7 +25,7 @@ export class StartScene extends Phaser.Scene {
             this.cameras.main.centerY,
             200,
             50,
-            0x4caf50 // Green color
+            0x17101F // Green color
         ).setInteractive({ useHandCursor: true });
 
         // Add button text
@@ -44,11 +44,11 @@ export class StartScene extends Phaser.Scene {
 
         // Add hover effect
         startButton.on("pointerover", () => {
-            startButton.fillColor = 0x388e3c; // Darker green
+            startButton.fillColor = 0x342841; // Darker green
         });
 
         startButton.on("pointerout", () => {
-            startButton.fillColor = 0x4caf50; // Back to original green
+            startButton.fillColor = 0x17101F; // Back to original green
         });
 
         // Add click event to start the game

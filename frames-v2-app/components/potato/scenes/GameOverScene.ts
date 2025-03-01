@@ -24,28 +24,55 @@ export class GameOverScene extends Phaser.Scene {
         // Scale the background to fit the game canvas
         background.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
         
-        // Add game over text
-        this.add.text(
+        // Add a semi-transparent overlay
+        this.add.rectangle(
+            this.cameras.main.centerX,
+            this.cameras.main.centerY,
+            this.cameras.main.width,
+            this.cameras.main.height,
+            0x000000,
+            0.5
+        );
+        
+        // Add game over text with glow effect
+        const gameOverText = this.add.text(
             this.cameras.main.centerX,
             this.cameras.main.centerY - 80,
             "GAME OVER",
             {
                 fontFamily: "Arial",
                 fontSize: "48px",
-                color: "#ffffff",
+                color: "#ff0000",
                 fontStyle: "bold",
                 align: "center",
             }
         ).setOrigin(0.5);
+        
+        // Add glow effect
+        gameOverText.setShadow(0, 0, '#ff6666', 8, true, true);
 
-        // Add final score text
+        // Add final score text with golden color for emphasis
         this.add.text(
             this.cameras.main.centerX,
             this.cameras.main.centerY,
             `Final Score: ${this.finalScore}`,
             {
                 fontFamily: "Arial",
-                fontSize: "24px",
+                fontSize: "28px",
+                color: "#ffd700", // Golden color
+                align: "center",
+                fontStyle: "bold"
+            }
+        ).setOrigin(0.5);
+        
+        // Add instructions text
+        this.add.text(
+            this.cameras.main.centerX,
+            this.cameras.main.centerY + 30,
+            "Click the button below to save your score",
+            {
+                fontFamily: "Arial",
+                fontSize: "16px",
                 color: "#ffffff",
                 align: "center",
             }
@@ -57,14 +84,14 @@ export class GameOverScene extends Phaser.Scene {
             this.cameras.main.centerY + 80,
             200,
             50,
-            0x4caf50 // Green color
+            0x17101F // Green color
         ).setInteractive({ useHandCursor: true });
 
         // Add button text
         this.add.text(
             this.cameras.main.centerX,
             this.cameras.main.centerY + 80,
-            "PLAY AGAIN",
+            "SUBMIT SCORE",
             {
                 fontFamily: "Arial",
                 fontSize: "18px",
@@ -76,14 +103,14 @@ export class GameOverScene extends Phaser.Scene {
 
         // Add hover effect
         playAgainButton.on("pointerover", () => {
-            playAgainButton.fillColor = 0x388e3c; // Darker green
+            playAgainButton.fillColor = 0x342841; // Darker green
         });
 
         playAgainButton.on("pointerout", () => {
-            playAgainButton.fillColor = 0x4caf50; // Back to original green
+            playAgainButton.fillColor = 0x17101F; // Back to original green
         });
 
-        // Add click event to restart the game
+        // Add click event to submit score and navigate to pass-potato page
         playAgainButton.on("pointerdown", () => {
             // Disable the button to prevent multiple clicks
             playAgainButton.disableInteractive();
@@ -93,7 +120,7 @@ export class GameOverScene extends Phaser.Scene {
             const loadingText = this.add.text(
                 this.cameras.main.centerX,
                 this.cameras.main.centerY + 140,
-                "Loading...",
+                "Saving score...",
                 {
                     fontFamily: "Arial",
                     fontSize: "16px",
@@ -102,16 +129,21 @@ export class GameOverScene extends Phaser.Scene {
                 }
             ).setOrigin(0.5);
             
-            // Add a delay before scene transition
-            this.time.delayedCall(500, () => {
-                // Completely restart the game by going through the start scene
-                // First stop all scenes to ensure a clean state
+            // Save the score to localStorage for the next page
+            localStorage.setItem('potatoGameScore', this.finalScore.toString());
+            
+            // Show success message
+            loadingText.setText("Score saved! Redirecting...");
+            
+            // Navigate to the pass-potato page after a short delay
+            this.time.delayedCall(1500, () => {
+                // Stop all scenes
                 this.scene.manager.scenes.forEach(scene => {
                     this.scene.stop(scene.scene.key);
                 });
                 
-                // Then start the StartScene
-                this.scene.start("StartScene");
+                // Redirect to the pass-potato page
+                window.location.href = "/pass-potato";
             });
         });
 

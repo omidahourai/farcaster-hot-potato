@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import sdk, { type FrameContext } from "@farcaster/frame-sdk";
+import sdk from "@farcaster/frame-sdk";
 import { useAccount, useSendTransaction, useWaitForTransactionReceipt, useConnect, useDisconnect } from "wagmi";
 import { config } from "~/components/providers/WagmiProvider";
 import { Button } from "~/components/ui/Button";
@@ -12,7 +12,6 @@ import Head from "next/head";
 // Instead, we'll use the Head component to add the frame metadata
 export default function AttestPage() {
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
-  const [context, setContext] = useState<FrameContext>();
   const { address, isConnected } = useAccount();
   const [randomString, setRandomString] = useState("");
   const [txHash, setTxHash] = useState<string | null>(null);
@@ -29,7 +28,7 @@ export default function AttestPage() {
   // Initialize Farcaster Frame SDK
   useEffect(() => {
     const load = async () => {
-      setContext(await sdk.context);
+      // setContext(await sdk.context);
       sdk.actions.ready();
     };
     if (sdk && !isSDKLoaded) {
@@ -58,7 +57,7 @@ export default function AttestPage() {
     sendTransaction(
       {
         to: "0x4bBFD120d9f352A0BEd7a014bd67913a2007a878", // Replace with your contract address
-        data: "0x9846cd9e" + randomString, // Replace with your actual contract method and data
+        data: "9846cd9e" + randomString as `0x${string}`, // Replace with your actual contract method and data
       },
       {
         onSuccess: (hash) => {
