@@ -1,12 +1,5 @@
 import * as Phaser from "phaser";
 
-// Define window.ethereum for TypeScript
-declare global {
-    interface Window {
-        ethereum: any;
-    }
-}
-
 export class GameOverScene extends Phaser.Scene {
     private finalScore: number = 0;
 
@@ -31,28 +24,55 @@ export class GameOverScene extends Phaser.Scene {
         // Scale the background to fit the game canvas
         background.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
         
-        // Add game over text
-        this.add.text(
+        // Add a semi-transparent overlay
+        this.add.rectangle(
+            this.cameras.main.centerX,
+            this.cameras.main.centerY,
+            this.cameras.main.width,
+            this.cameras.main.height,
+            0x000000,
+            0.5
+        );
+        
+        // Add game over text with glow effect
+        const gameOverText = this.add.text(
             this.cameras.main.centerX,
             this.cameras.main.centerY - 80,
             "GAME OVER",
             {
                 fontFamily: "Arial",
                 fontSize: "48px",
-                color: "#ffffff",
+                color: "#ff0000",
                 fontStyle: "bold",
                 align: "center",
             }
         ).setOrigin(0.5);
+        
+        // Add glow effect
+        gameOverText.setShadow(0, 0, '#ff6666', 8, true, true);
 
-        // Add final score text
+        // Add final score text with golden color for emphasis
         this.add.text(
             this.cameras.main.centerX,
             this.cameras.main.centerY,
             `Final Score: ${this.finalScore}`,
             {
                 fontFamily: "Arial",
-                fontSize: "24px",
+                fontSize: "28px",
+                color: "#ffd700", // Golden color
+                align: "center",
+                fontStyle: "bold"
+            }
+        ).setOrigin(0.5);
+        
+        // Add instructions text
+        this.add.text(
+            this.cameras.main.centerX,
+            this.cameras.main.centerY + 30,
+            "Click the button below to save your score",
+            {
+                fontFamily: "Arial",
+                fontSize: "16px",
                 color: "#ffffff",
                 align: "center",
             }
@@ -91,7 +111,7 @@ export class GameOverScene extends Phaser.Scene {
         });
 
         // Add click event to submit score and navigate to pass-potato page
-        playAgainButton.on("pointerdown", async () => {
+        playAgainButton.on("pointerdown", () => {
             // Disable the button to prevent multiple clicks
             playAgainButton.disableInteractive();
             playAgainButton.fillColor = 0x888888; // Gray out the button
@@ -100,7 +120,7 @@ export class GameOverScene extends Phaser.Scene {
             const loadingText = this.add.text(
                 this.cameras.main.centerX,
                 this.cameras.main.centerY + 140,
-                "Connecting to wallet...",
+                "Saving score...",
                 {
                     fontFamily: "Arial",
                     fontSize: "16px",
@@ -109,43 +129,22 @@ export class GameOverScene extends Phaser.Scene {
                 }
             ).setOrigin(0.5);
             
-            try {
-                // For now, let's just navigate to the pass-potato page without blockchain interaction
-                // This is a temporary solution until we fix the blockchain integration
-                
-                // Save the score to localStorage for the next page
-                localStorage.setItem('potatoGameScore', this.finalScore.toString());
-                
-                loadingText.setText("Score saved! Redirecting...");
-                
-                // Navigate to the pass-potato page after a short delay
-                this.time.delayedCall(1000, () => {
-                    // Stop all scenes
-                    this.scene.manager.scenes.forEach(scene => {
-                        this.scene.stop(scene.scene.key);
-                    });
-                    
-                    // Redirect to the pass-potato page
-                    window.location.href = "/pass-potato";
+            // Save the score to localStorage for the next page
+            localStorage.setItem('potatoGameScore', this.finalScore.toString());
+            
+            // Show success message
+            loadingText.setText("Score saved! Redirecting...");
+            
+            // Navigate to the pass-potato page after a short delay
+            this.time.delayedCall(1500, () => {
+                // Stop all scenes
+                this.scene.manager.scenes.forEach(scene => {
+                    this.scene.stop(scene.scene.key);
                 });
                 
-
-                
-            } catch (error) {
-                console.error("Error:", error);
-                loadingText.setText("An error occurred. Redirecting...");
-                
-                // Even if there's an error, let's still navigate to the pass-potato page
-                this.time.delayedCall(2000, () => {
-                    // Stop all scenes
-                    this.scene.manager.scenes.forEach(scene => {
-                        this.scene.stop(scene.scene.key);
-                    });
-                    
-                    // Redirect to the pass-potato page
-                    window.location.href = "/pass-potato";
-                });
-            }
+                // Redirect to the pass-potato page
+                window.location.href = "/pass-potato";
+            });
         });
 
         // Add a sad potato icon
