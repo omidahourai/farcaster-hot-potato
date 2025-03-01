@@ -1,4 +1,10 @@
 {
+  "app/page.tsx -> ~/components/Demo": {
+    "id": "app/page.tsx -> ~/components/Demo",
+    "files": [
+      "static/chunks/_app-pages-browser_components_Demo_tsx.js"
+    ]
+  },
   "app/potato/page.tsx -> ~/components/potato/PotatoGame": {
     "id": "app/potato/page.tsx -> ~/components/potato/PotatoGame",
     "files": [
@@ -13,7 +19,9 @@
   },
   "node_modules/viem/_esm/actions/public/call.js -> ../../utils/ccip.js": {
     "id": "node_modules/viem/_esm/actions/public/call.js -> ../../utils/ccip.js",
-    "files": []
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_viem__esm_utils_ccip_js.js"
+    ]
   },
   "node_modules/viem/_esm/utils/rpc/webSocket.js -> isows": {
     "id": "node_modules/viem/_esm/utils/rpc/webSocket.js -> isows",
@@ -21,6 +29,8 @@
   },
   "node_modules/viem/_esm/utils/signature/recoverPublicKey.js -> @noble/curves/secp256k1": {
     "id": "node_modules/viem/_esm/utils/signature/recoverPublicKey.js -> @noble/curves/secp256k1",
-    "files": []
+    "files": [
+      "static/chunks/_app-pages-browser_node_modules_noble_curves_esm_secp256k1_js.js"
+    ]
   }
 }

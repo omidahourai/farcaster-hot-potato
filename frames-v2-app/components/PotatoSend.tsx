@@ -43,7 +43,7 @@ const PotatoSend: React.FC<CardProps> = ({ potato, receiver, onReceiverChange, o
         onClick={onButtonClick}
       />
     </div>
-      {/* {isHolding && (
+      {isHolding && (
         <div className="dropdown">
           <input
             type="text"
@@ -69,7 +69,7 @@ const PotatoSend: React.FC<CardProps> = ({ potato, receiver, onReceiverChange, o
           )}
         </div>
       )}
-      <button onClick={onSend} className="send-button">Send Potato</button> */}
+      <button onClick={onSend} className="send-button">Send Potato</button>
     </div>
   );
 };

@@ -1,4 +1,10 @@
 {
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/user-potatoes/route": "app/api/user-potatoes/route.js",
+  "/api/user-fid/route": "app/api/user-fid/route.js",
+  "/api/send/route": "app/api/send/route.js",
+  "/api/following/route": "app/api/following/route.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/page": "app/page.js",
   "/potato/page": "app/potato/page.js"
 }
