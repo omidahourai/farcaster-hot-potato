@@ -6,10 +6,18 @@ export class StartScene extends Phaser.Scene {
     }
     
     preload() {
-        // No preloading needed
+        // Load the hell background image
+        this.load.image('hell-background', '/assets/hell-image.jpg');
     }
 
     create() {
+        // Add the hell background image
+        const background = this.add.image(0, 0, 'hell-background');
+        background.setOrigin(0, 0);
+        
+        // Scale the background to fit the game canvas
+        background.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
+        
         // Add title text
         this.add.text(
             this.cameras.main.centerX,
@@ -90,6 +98,8 @@ export class StartScene extends Phaser.Scene {
             
             // Use a longer delay before scene transition to allow for cleanup
             this.time.delayedCall(500, () => {
+                // Make sure the BouncingBallScene is stopped before starting it again
+                this.scene.stop("BouncingBallScene");
                 this.scene.start("BouncingBallScene");
             });
         });

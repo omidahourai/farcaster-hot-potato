@@ -12,8 +12,33 @@ export class BouncingBallScene extends Phaser.Scene {
     constructor() {
         super("BouncingBallScene");
     }
+    
+    init() {
+        // Reset all game state variables
+        this.lives = 3;
+        this.score = 0;
+        this.isLosingLife = false;
+        
+        // Clear any existing objects
+        if (this.potato) {
+            this.potato.destroy();
+            this.potato = null;
+        }
+        
+        if (this.scoreText) {
+            this.scoreText.destroy();
+            this.scoreText = null;
+        }
+        
+        // Clear any existing heart icons
+        this.heartIcons.forEach(heart => heart.destroy());
+        this.heartIcons = [];
+    }
 
     preload() {
+        // Load the hell background image
+        this.load.image('hell-background', '/assets/hell-image.jpg');
+        
         // Create a potato shape as a texture
         const graphics = this.make.graphics({ x: 0, y: 0, add: false });
         
@@ -62,9 +87,12 @@ export class BouncingBallScene extends Phaser.Scene {
     }
 
     create() {
-        // Reset game state
-        this.lives = 3;
-        this.score = 0;
+        // Add the hell background image
+        const background = this.add.image(0, 0, 'hell-background');
+        background.setOrigin(0, 0);
+        
+        // Scale the background to fit the game canvas
+        background.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
         
         // Add a potato sprite
         this.potato = this.physics.add.sprite(
@@ -78,7 +106,7 @@ export class BouncingBallScene extends Phaser.Scene {
             // We'll handle bounds manually in the update method
             this.potato.setCollideWorldBounds(false);
             this.potato.setBounce(0.6); // Reduced bounce factor
-            this.potato.setInteractive();
+            this.potato.setInteractive({ useHandCursor: true });
             
             // Add click/tap event to make the potato bounce
             this.potato.on("pointerdown", this.bouncePotato, this);
@@ -201,15 +229,24 @@ export class BouncingBallScene extends Phaser.Scene {
     createFireAnimation() {
         const screenWidth = this.cameras.main.width;
         
-        // Just create a simple red rectangle at the bottom to represent fire
-        // No particles at all
+        // Create a more visible fire with the background
+        // Add a glow effect
+        const fireGlow = this.add.rectangle(
+            screenWidth / 2,
+            this.cameras.main.height - 20,
+            screenWidth,
+            40,
+            0xff5500
+        ).setAlpha(0.4);
+        
+        // Main fire
         const fireBase = this.add.rectangle(
             screenWidth / 2,
             this.cameras.main.height - 15,
             screenWidth,
             30,
             0xff3700
-        ).setAlpha(0.6);
+        ).setAlpha(0.8);
         
         // Add a darker base
         const fireBaseDark = this.add.rectangle(
@@ -218,7 +255,17 @@ export class BouncingBallScene extends Phaser.Scene {
             screenWidth,
             10,
             0xaa0000
-        ).setAlpha(0.8);
+        ).setAlpha(0.9);
+        
+        // Add simple fire animation using tweens
+        this.tweens.add({
+            targets: [fireBase, fireGlow],
+            alpha: '-=0.2',
+            yoyo: true,
+            repeat: -1,
+            duration: 500,
+            ease: 'Sine.easeInOut'
+        });
     }
     
     loseLife() {
@@ -366,6 +413,33 @@ export class BouncingBallScene extends Phaser.Scene {
             if (this.scoreText) {
                 this.scoreText.setText(`Score: ${this.score}`);
             }
+        }
+    }
+    
+    resetPotato() {
+        // Destroy the current potato if it exists
+        if (this.potato) {
+            this.potato.destroy();
+            this.potato = null;
+        }
+        
+        // Create a new potato
+        this.potato = this.physics.add.sprite(
+            this.cameras.main.centerX,
+            this.cameras.main.centerY - 100,
+            "potato"
+        );
+        
+        // Set the potato's physics properties
+        if (this.potato) {
+            this.potato.setCollideWorldBounds(false);
+            this.potato.setBounce(0.6);
+            this.potato.setInteractive({ useHandCursor: true });
+            this.potato.on("pointerdown", this.bouncePotato, this);
+            
+            // Give a gentle initial velocity
+            const initialVelocityX = Phaser.Math.Between(-100, 100);
+            this.potato.setVelocity(initialVelocityX, 0);
         }
     }
 }

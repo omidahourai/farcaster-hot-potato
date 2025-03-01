@@ -8,7 +8,8 @@ export class GameOverScene extends Phaser.Scene {
     }
     
     preload() {
-        // No preloading needed
+        // Load the hell background image
+        this.load.image('hell-background', '/assets/hell-image.jpg');
     }
 
     init(data: { score: number }) {
@@ -16,6 +17,13 @@ export class GameOverScene extends Phaser.Scene {
     }
 
     create() {
+        // Add the hell background image
+        const background = this.add.image(0, 0, 'hell-background');
+        background.setOrigin(0, 0);
+        
+        // Scale the background to fit the game canvas
+        background.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
+        
         // Add game over text
         this.add.text(
             this.cameras.main.centerX,
@@ -96,6 +104,13 @@ export class GameOverScene extends Phaser.Scene {
             
             // Add a delay before scene transition
             this.time.delayedCall(500, () => {
+                // Completely restart the game by going through the start scene
+                // First stop all scenes to ensure a clean state
+                this.scene.manager.scenes.forEach(scene => {
+                    this.scene.stop(scene.scene.key);
+                });
+                
+                // Then start the StartScene
                 this.scene.start("StartScene");
             });
         });
