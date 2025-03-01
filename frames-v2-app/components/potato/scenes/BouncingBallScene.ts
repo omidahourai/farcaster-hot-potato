@@ -303,7 +303,7 @@ export class BouncingBallScene extends Phaser.Scene {
             this.cameras.main.centerY - 30, // Move up a bit to be clearly above the fire
             240,
             50,
-            0x4caf50 // Green color
+            0x17101F // Green color
         ).setInteractive({ useHandCursor: true });
         
         // Add button text
@@ -322,11 +322,11 @@ export class BouncingBallScene extends Phaser.Scene {
         
         // Add hover effect
         continueButton.on("pointerover", () => {
-            continueButton.fillColor = 0x388e3c; // Darker green
+            continueButton.fillColor = 0x342841; // Darker green
         });
         
         continueButton.on("pointerout", () => {
-            continueButton.fillColor = 0x4caf50; // Back to original green
+            continueButton.fillColor = 0x17101F; // Back to original green
         });
         
         // Add click event to restart the level

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import sdk, { type FrameContext } from '@farcaster/frame-sdk';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { ethers } from 'ethers';
 import { Web3Provider } from '@ethersproject/providers';
 import { Potato } from '../../models/potato';
@@ -25,6 +26,8 @@ export default function Home() {
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
   const [context, setContext] = useState<FrameContext | null>(null);
   const [following, setFollowing] = useState<{ username: string; fid: number }[]>([]);
+
+  const router = useRouter();
 
   useEffect(() => {
     if (user) {
@@ -69,10 +72,9 @@ export default function Home() {
     return <div>Loading...</div>;
   }
 
-  const farmPotato = async () => {
-    const response = await axios.post('/api/farm', { creator: user });
-    setCreatedPotatoes([...createdPotatoes, response.data]);
-    setHeldPotatoes([...heldPotatoes, response.data]);
+  const farmPotato = () => {
+    // Navigate to the potato game instead of farming a potato
+    router.push('/potato');
   };
 
   const sendPotato = async (potatoId: string) => {
@@ -147,7 +149,7 @@ export default function Home() {
               readOnly
               className="user-input"
             />
-            <button onClick={farmPotato} className="farm-button">Farm Potato</button>
+            <button onClick={farmPotato} className="farm-button">Play Hot Potato Game</button>
             {error && <p className="error">{error}</p>}
             <div className="tabs">
               <div

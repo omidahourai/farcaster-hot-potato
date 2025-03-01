@@ -57,14 +57,14 @@ export class GameOverScene extends Phaser.Scene {
             this.cameras.main.centerY + 80,
             200,
             50,
-            0x4caf50 // Green color
+            0x17101F // Green color
         ).setInteractive({ useHandCursor: true });
 
         // Add button text
         this.add.text(
             this.cameras.main.centerX,
             this.cameras.main.centerY + 80,
-            "PLAY AGAIN",
+            "SUBMIT SCORE",
             {
                 fontFamily: "Arial",
                 fontSize: "18px",
@@ -76,11 +76,11 @@ export class GameOverScene extends Phaser.Scene {
 
         // Add hover effect
         playAgainButton.on("pointerover", () => {
-            playAgainButton.fillColor = 0x388e3c; // Darker green
+            playAgainButton.fillColor = 0x342841; // Darker green
         });
 
         playAgainButton.on("pointerout", () => {
-            playAgainButton.fillColor = 0x4caf50; // Back to original green
+            playAgainButton.fillColor = 0x17101F; // Back to original green
         });
 
         // Add click event to restart the game
