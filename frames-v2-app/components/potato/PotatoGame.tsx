@@ -20,7 +20,7 @@ const PotatoGame = () => {
             physics: {
                 default: "arcade",
                 arcade: {
-                    gravity: { y: 600 }, // Doubled gravity to make potato less bouncy
+                    gravity: { x: 0, y: 600 }, // Doubled gravity to make potato less bouncy
                     debug: false
                 }
             },

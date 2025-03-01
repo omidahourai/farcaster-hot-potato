@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
   const { creator } = await req.json();
   const newPotato: Potato = {
     id: uuidv4(),
+    name: 'Potato',
     creator,
     currentHolder: creator,
     createdAt: new Date(),

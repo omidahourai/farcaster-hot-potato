@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import sdk, { type FrameContext } from '@farcaster/frame-sdk';
+import sdk from '@farcaster/frame-sdk';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { ethers } from 'ethers';
@@ -10,9 +10,9 @@ import { Potato } from '../../models/potato';
 import { PotatoProvider } from '../../components/providers/PotatoProvider';
 import PotatoSend from '../../components/PotatoSend';
 import '../../styles/styles.css';
-import {abi} from '../../../foundry/out/HotPotato.sol/HotPotato.json'; // Import the ABI of the HotPotato contract
+import HotPotatoJson from '../../../foundry/out/HotPotato.sol/HotPotato.json';
+const abi = HotPotatoJson.abi;
 
-const BASE_RPC_URL = "https://base-rpc-url"; // Replace with the actual RPC URL for Base
 const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // Replace with your contract address
 
 export default function Home() {
@@ -24,7 +24,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>('holding');
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
-  const [context, setContext] = useState<FrameContext | null>(null);
+  const [context, setContext] = useState<any | null>(null);
   const [following, setFollowing] = useState<{ username: string; fid: number }[]>([]);
 
   const router = useRouter();
@@ -48,7 +48,7 @@ export default function Home() {
       });
       console.log(fid);
     }
-  }, [user]);
+  }, [user, fid]);
 
   useEffect(() => {
     const load = async () => {
@@ -77,20 +77,20 @@ export default function Home() {
     router.push('/potato');
   };
 
-  const sendPotato = async (potatoId: string) => {
-    try {
-      const receiver = receivers[potatoId];
-      const response = await axios.post('/api/send', { potatoId, sender: user, receiver });
-      setHeldPotatoes(heldPotatoes.map((p) => (p.id === potatoId ? response.data : p)));
-      setError(null); // Clear any previous errors
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        setError(error.response.data.error);
-      } else {
-        console.error('Error sending potato:', error);
-      }
-    }
-  };
+  // const sendPotato = async (potatoId: string) => {
+  //   try {
+  //     const receiver = receivers[potatoId];
+  //     const response = await axios.post('/api/send', { potatoId, sender: user, receiver });
+  //     setHeldPotatoes(heldPotatoes.map((p) => (p.id === potatoId ? response.data : p)));
+  //     setError(null); // Clear any previous errors
+  //   } catch (error) {
+  //     if (axios.isAxiosError(error) && error.response) {
+  //       setError(error.response.data.error);
+  //     } else {
+  //       console.error('Error sending potato:', error);
+  //     }
+  //   }
+  // };
 
   const handleReceiverChange = (potatoId: string, value: string) => {
     setReceivers((prevReceivers) => ({
@@ -100,11 +100,6 @@ export default function Home() {
   };
 
   const passPotato = async (senderFid: number, senderAddress: string, receiverFid: number, receiverAddress: string) => {
-    if (!window.ethereum) {
-      alert('Please install MetaMask!');
-      return;
-    }
-
     try {
       const ethereum = (window as any).ethereum;
       if (!ethereum) {
@@ -118,7 +113,7 @@ export default function Home() {
       const signer = provider.getSigner();
 
       // Create a contract instance
-      const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer);
+      const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, signer as any);
       receiverAddress = "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720";
       senderAddress = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
       receiverFid = 1;
@@ -175,9 +170,10 @@ export default function Home() {
                       potato={potato}
                       receiver={receivers[potato.id] || ''}
                       onReceiverChange={handleReceiverChange}
-                      onSend={() => passPotato(fid, user, receivers[potato.id], '')}
+                      onSend={() => passPotato(fid, user, parseInt(receivers[potato.id]), '')}
                       isHolding={true}
                       following={following}
+                      onButtonClick={() => void 0}
                     />
                   ))}
                 </div>
@@ -188,7 +184,7 @@ export default function Home() {
                 <h2>Potatoes You Have Created</h2>
                 <div>
                   {createdPotatoes.map((potato) => (
-                    <PotatoSend key={potato.id} potato={potato} receiver="" onReceiverChange={() => {}} onSend={() => {}} isHolding={false} following={[]} />
+                    <PotatoSend key={potato.id} potato={potato} receiver="" onReceiverChange={() => {}} onSend={() => {}} isHolding={false} following={[]} onButtonClick={() => void 0}/>
                   ))}
                 </div>
               </div>
