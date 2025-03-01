@@ -4,26 +4,17 @@
   "/api/attest/route": "app/api/attest/route.js",
   "/api/farm/route": "app/api/farm/route.js",
   "/api/following/route": "app/api/following/route.js",
+  "/api/potato/frame/route": "app/api/potato/frame/route.js",
   "/api/send/route": "app/api/send/route.js",
   "/api/user-fid/route": "app/api/user-fid/route.js",
   "/api/user-potatoes/route": "app/api/user-potatoes/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-<<<<<<< HEAD
-  "/api/user-potatoes/route": "app/api/user-potatoes/route.js",
-  "/api/user-fid/route": "app/api/user-fid/route.js",
-  "/api/send/route": "app/api/send/route.js",
-  "/api/following/route": "app/api/following/route.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/page": "app/page.js",
-  "/potato/page": "app/potato/page.js"
-=======
-  "/dashboard/page": "app/dashboard/page.js",
   "/attest/page": "app/attest/page.js",
   "/game/page": "app/game/page.js",
-  "/page": "app/page.js",
   "/pass-potato/page": "app/pass-potato/page.js",
+  "/page": "app/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
   "/potato/page": "app/potato/page.js",
   "/api/og/route": "app/api/og/route.js",
   "/attest/opengraph-image/route": "app/attest/opengraph-image/route.js"
->>>>>>> passpotato
 }
