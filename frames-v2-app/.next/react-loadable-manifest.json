@@ -21,7 +21,7 @@
     "id": 6789,
     "files": [
       "static/chunks/8f005c66-713a19b74eb89d51.js",
-      "static/chunks/789.b20546f59feb9abf.js"
+      "static/chunks/789.ec6370b27d214716.js"
     ]
   },
   "app/providers.tsx -> ~/components/providers/WagmiProvider": {

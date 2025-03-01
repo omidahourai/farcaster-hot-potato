@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Potato } from '@/models/potato';
 
 interface CardProps {
@@ -36,11 +37,13 @@ const PotatoSend: React.FC<CardProps> = ({ potato, receiver, onReceiverChange, o
     <div className="card">
     <div className="card-header">
       <h3>{potato.creator}'s Potato</h3>
-      <img
+      <Image
         src="/potato.png" // Path to the potato image in the public directory
         alt="Potato"
         className="potato-button"
         onClick={onButtonClick}
+        width={50} // Add appropriate width
+        height={50} // Add appropriate height
       />
     </div>
       {isHolding && (

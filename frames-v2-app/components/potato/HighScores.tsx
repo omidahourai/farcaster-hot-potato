@@ -69,7 +69,7 @@ export const HighScores = ({
     // Try to get blockchain scores
     try {
       if (typeof window !== 'undefined' && window.ethereum) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const provider = new (ethers as any).providers.Web3Provider(window.ethereum);
         const contract = new ethers.Contract(contractAddress, contractABI, provider);
         
         const blockchainScores = await contract.getHighScores();
@@ -159,10 +159,3 @@ export const HighScores = ({
     </div>
   );
 };
-
-// Type definition for window.ethereum
-declare global {
-  interface Window {
-    ethereum?: any;
-  }
-}

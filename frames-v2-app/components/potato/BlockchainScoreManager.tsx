@@ -32,10 +32,10 @@ export const BlockchainScoreManager = ({
 
     try {
       // Check if MetaMask is installed
-      if (typeof window !== 'undefined' && window.ethereum) {
+      if (typeof window !== 'undefined' && (window as any).ethereum) {
         try {
           // Request account access
-          const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const accounts = await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
           
           // Check if any accounts were returned
           if (!accounts || accounts.length === 0) {
@@ -84,7 +84,7 @@ export const BlockchainScoreManager = ({
       });
       
       // Sort scores (highest first)
-      scores.sort((a, b) => b.score - a.score);
+      scores.sort((a: { score: number }, b: { score: number }) => b.score - a.score);
       
       // Keep only top 10 scores
       scores = scores.slice(0, 10);
@@ -119,7 +119,7 @@ export const BlockchainScoreManager = ({
       }
 
       // Create a provider
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const provider = new (ethers as any).providers.Web3Provider((window as any).ethereum);
       const signer = provider.getSigner();
 
       // Create contract instance
@@ -188,10 +188,3 @@ export const BlockchainScoreManager = ({
     </div>
   );
 };
-
-// Type definition for window.ethereum
-declare global {
-  interface Window {
-    ethereum?: any;
-  }
-}

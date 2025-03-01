@@ -41,10 +41,11 @@ export default function PassPotatoPage() {
             <div className="max-w-xl w-full bg-[#342841] p-8 rounded-lg shadow-lg">
                 <div className="flex justify-center mb-4">
                     <div className="relative w-20 h-20">
-                        <img 
+                        <Image 
                             src="/potato.png" 
                             alt="Hot Potato" 
-                            className="w-full h-full object-contain"
+                            layout="fill" 
+                            objectFit="contain"
                         />
                     </div>
                 </div>

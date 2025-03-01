@@ -8,11 +8,12 @@
   "/api/user-fid/route": "app/api/user-fid/route.js",
   "/api/user-potatoes/route": "app/api/user-potatoes/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/attest/page": "app/attest/page.js",
-  "/potato/page": "app/potato/page.js",
-  "/page": "app/page.js",
   "/dashboard/page": "app/dashboard/page.js",
+  "/attest/page": "app/attest/page.js",
   "/game/page": "app/game/page.js",
+  "/page": "app/page.js",
+  "/pass-potato/page": "app/pass-potato/page.js",
+  "/potato/page": "app/potato/page.js",
   "/api/og/route": "app/api/og/route.js",
   "/attest/opengraph-image/route": "app/attest/opengraph-image/route.js"
 }
