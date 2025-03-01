@@ -10,7 +10,8 @@ const PotatoGame = dynamic(() => import("~/components/potato/PotatoGame"), {
 export default function PotatoPage() {
     return (
         <main className="min-h-screen flex flex-col items-center justify-center p-4">
-            <h1 className="text-2xl font-bold mb-4">Bouncing Potato Game</h1>
+            <h1 className="text-2xl font-bold mb-4">Hot Potato Game</h1>
+            <p className="text-2xl font-bold mb-4">Click the potato to make it bounce!</p>
             <div className="w-full max-w-[400px]">
                 <PotatoGame />
             </div>

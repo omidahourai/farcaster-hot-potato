@@ -118,7 +118,7 @@ export class BouncingBallScene extends Phaser.Scene {
         // Add score text in the top center
         this.scoreText = this.add.text(
             this.cameras.main.centerX,
-            20,
+            30,
             "Score: 0",
             {
                 fontFamily: "Arial",
@@ -134,19 +134,6 @@ export class BouncingBallScene extends Phaser.Scene {
         
         // Create fire at the bottom of the screen (now just a simple rectangle)
         this.createFireAnimation();
-        
-        // Add text instructions
-        this.add.text(
-            this.cameras.main.centerX,
-            60,
-            "Click/Tap the potato to bounce it!",
-            {
-                fontFamily: "Arial",
-                fontSize: "18px",
-                color: "#ffffff",
-                align: "center",
-            }
-        ).setOrigin(0.5);
     }
     
     update() {
@@ -314,7 +301,7 @@ export class BouncingBallScene extends Phaser.Scene {
         const continueButton = this.add.rectangle(
             this.cameras.main.centerX,
             this.cameras.main.centerY - 30, // Move up a bit to be clearly above the fire
-            200,
+            240,
             50,
             0x4caf50 // Green color
         ).setInteractive({ useHandCursor: true });

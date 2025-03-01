@@ -18,37 +18,11 @@ export class StartScene extends Phaser.Scene {
         // Scale the background to fit the game canvas
         background.setDisplaySize(this.cameras.main.width, this.cameras.main.height);
         
-        // Add title text
-        this.add.text(
-            this.cameras.main.centerX,
-            this.cameras.main.centerY - 80,
-            "Hot Potato Game",
-            {
-                fontFamily: "Arial",
-                fontSize: "32px",
-                color: "#ffffff",
-                fontStyle: "bold",
-                align: "center",
-            }
-        ).setOrigin(0.5);
-
-        // Add description text
-        this.add.text(
-            this.cameras.main.centerX,
-            this.cameras.main.centerY - 20,
-            "Click on the potato to make it bounce!",
-            {
-                fontFamily: "Arial",
-                fontSize: "16px",
-                color: "#ffffff",
-                align: "center",
-            }
-        ).setOrigin(0.5);
 
         // Create a start button
         const startButton = this.add.rectangle(
             this.cameras.main.centerX,
-            this.cameras.main.centerY + 60,
+            this.cameras.main.centerY,
             200,
             50,
             0x4caf50 // Green color
@@ -57,7 +31,7 @@ export class StartScene extends Phaser.Scene {
         // Add button text
         this.add.text(
             this.cameras.main.centerX,
-            this.cameras.main.centerY + 60,
+            this.cameras.main.centerY,
             "START GAME",
             {
                 fontFamily: "Arial",
