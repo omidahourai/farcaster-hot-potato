@@ -1,0 +1,143 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.farm-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.farm-button:hover {
+  background-color: #45a049;
+}
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ccc;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 4px 4px 0 0;
+  background-color: #f1f1f1;
+  margin-bottom: -2px;
+}
+
+.tab.active {
+  background-color: #ddd;
+  border-bottom: 2px solid #ddd;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.send-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.send-button:hover {
+  background-color: #0056b3;
+}
+
+.potato-button {
+  width: 50px; /* Adjust the size as needed */
+  height: 50px; /* Adjust the size as needed */
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.dropdown-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 100%;
+  max-height: 150px; /* Set max height for scrollable dropdown */
+  overflow-y: auto; /* Enable vertical scrolling */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content .dropdown-item {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.dropdown-content .dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-input:focus + .dropdown-content,
+.dropdown-content:hover {
+  display: block;
+}

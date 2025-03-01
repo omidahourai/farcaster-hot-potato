@@ -16,23 +16,37 @@ export function frameConnector() {
       this.connect({ chainId: config.chains[0].id });
     },
     async connect({ chainId } = {}) {
-      const provider = await this.getProvider();
-      const accounts = await provider.request({
-        method: 'eth_requestAccounts',
-      });
+      try {
+        const provider = sdk.wallet.ethProvider;
+        if (!provider) {
+          throw new Error('Provider not initialized');
+        }
+        console.log(provider.request({ method: 'eth_requestAccounts' }));
 
-      let currentChainId = await this.getChainId();
-      if (chainId && currentChainId !== chainId) {
-        const chain = await this.switchChain!({ chainId });
-        currentChainId = chain.id;
+        const accounts = await provider.request({
+          method: 'eth_requestAccounts',
+        });
+        if (!accounts) {
+          throw new Error('Failed to get accounts');
+        }
+        console.log(accounts);
+
+        let currentChainId = await this.getChainId();
+        if (chainId && currentChainId !== chainId) {
+          const chain = await this.switchChain!({ chainId });
+          currentChainId = chain.id;
+        }
+
+        connected = true;
+
+        return {
+          accounts: accounts.map((x) => getAddress(x)),
+          chainId: currentChainId,
+        };
+      } catch (error) {
+        console.error('Error connecting to provider:', error);
+        throw error;
       }
-
-      connected = true;
-
-      return {
-        accounts: accounts.map((x) => getAddress(x)),
-        chainId: currentChainId,
-      };
     },
     async disconnect() {
       connected = false;
@@ -59,15 +73,45 @@ export function frameConnector() {
       return !!accounts.length;
     },
     async switchChain({ chainId }) {
-      const provider = await this.getProvider();
-      const chain = config.chains.find((x) => x.id === chainId);
-      if (!chain) throw new SwitchChainError(new ChainNotConfiguredError());
+      try {
+        const provider = await this.getProvider();
+        const chain = config.chains.find((x) => x.id === chainId);
+        if (!chain) throw new SwitchChainError(new ChainNotConfiguredError());
 
-      await provider.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: numberToHex(chainId) }],
-      });
-      return chain;
+        try {
+          await provider.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: numberToHex(chainId) }],
+          });
+        } catch (switchError) {
+          // If the chain is not recognized, add it first
+          if (switchError as any) {
+            console.log(chain);
+            await provider.request({
+              method: 'wallet_addEthereumChain',
+              params: [
+                {
+                  chainId: numberToHex(chainId),
+                  chainName: chain.name,
+                  nativeCurrency: chain.nativeCurrency,
+                  rpcUrls: chain.rpcUrls.default.http, // Ensure rpcUrls is an array of strings
+                },
+              ],
+            });
+            // Retry switching the chain
+            await provider.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: numberToHex(chainId) }],
+            });
+          } else {
+            throw switchError;
+          }
+        }
+        return chain;
+      } catch (error) {
+        console.error('Error switching chain:', error);
+        throw error;
+      }
     },
     onAccountsChanged(accounts) {
       if (accounts.length === 0) this.onDisconnect();
@@ -85,7 +129,16 @@ export function frameConnector() {
       connected = false;
     },
     async getProvider() {
-      return sdk.wallet.ethProvider;
+      try {
+        const provider = sdk.wallet.ethProvider;
+        if (!provider) {
+          throw new Error('Provider not initialized');
+        }
+        return provider;
+      } catch (error) {
+        console.error('Error getting provider:', error);
+        throw error;
+      }
     },
   }));
 }
